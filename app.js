@@ -213,5 +213,5 @@ servidor.post('/loja/pedido/completo',(req,resp)=>{
 
 
 servidor.listen(
-    5003,
+    5004,
     () =>console.log('----> API SUBIU COM SUCESSO!!! <----'))
