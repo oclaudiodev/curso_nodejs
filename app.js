@@ -5,6 +5,8 @@ const servidor = express();
 servidor.use(express.json());
 servidor.use(cors())
 
+let uploadoPerfil = multer({dest:'./storage/perfil'})
+
 servidor.get('  /helloworld',(req, resp)=>{
   //código endpoint
   resp.status(404).send({
@@ -314,9 +316,19 @@ servidor.post('/loja/pedido/completo',(req,resp)=>{
             error: err.message
          })
     }
+})
 
 
+servidor.post('perfil/capa', uploadoPerfil.single('imagem'),(req,resp)=>{
+    let caminho = req.file.path;
+    let extensao= req.file.mimetype;
+    let nome = req.file.originalname;
     
+    resp.send({
+        caminho:caminho,
+        extensao:extensao,
+        nome:nome
+    })
 })
  
 
