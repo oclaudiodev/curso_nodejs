@@ -26,6 +26,13 @@ servidor.get ('/v2/mensagem/boasvindas',(req,resp)=>{
 })
 
 servidor.get('/calculadora/somar/:n1/:n2',(req,resp) =>{
+    if (isNaN(req.params.n1) || isNaN(req.params.n2)){
+        resp.status(400).send({
+            mensagem:'Erro: os dois valores precisam ser numéricos'
+        })
+        return
+    }
+    
     let n1 = Number(req.params.n1);
     let n2 = Number(req.params.n2)
     let soma = n1+n2;
@@ -97,6 +104,13 @@ servidor.get('/calculadora/soma2',(req,resp) =>{
 
 
 servidor.get('/mensagem/ola', (req,resp) =>{
+    if(!req.query.nome){
+        resp.status(400).send({
+        error:'É obrigatório o envio do nome'
+        })
+    return;
+    }
+
     let pessoa = req.query.nome ?? 'joia rara';
 
     resp.send({
